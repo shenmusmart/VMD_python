@@ -20,7 +20,9 @@ K       - the number of modes to be recovered
 DC      - true if the first mode is put and kept at DC (0-freq)
 
 init    - 0 = all omegas start at 0
-        - 1 = all omegas start uniformly distributed          
+
+        - 1 = all omegas start uniformly distributed   
+        
         - 2 = all omegas initialized randomly
                     
 tol     - tolerance of convergence criterion; typically around 1e-6
