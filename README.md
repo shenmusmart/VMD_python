@@ -1,9 +1,8 @@
 # VMD_python
 Variational Mode Decomposition for Python
-
 This is python realization for Variatioanl Mode Decomposition 
 Authors: Konstantin Dragomiretskiy and Dominique Zosso
-Input and Parameters:
+#Input and Parameters:
 ---------------------
 signal  - the time domain signal (1D) to be decomposed
 alpha   - the balancing parameter of the data-fidelity constraint
@@ -15,7 +14,7 @@ init    - 0 = all omegas start at 0
                     2 = all omegas initialized randomly
 tol     - tolerance of convergence criterion; typically around 1e-6
 
-Output:
+#Output:
 -------
 u       - the collection of decomposed modes
 u_hat   - spectra of the modes
