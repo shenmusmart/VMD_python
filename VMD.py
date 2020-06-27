@@ -28,7 +28,7 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
     T=save_T
     # print(T)
     f_mirror=np.zeros(2*T)
-    print(f_mirror)
+    #print(f_mirror)
     f_mirror[0:T//2]=signal[T//2-1::-1]
     # print(f_mirror)
     f_mirror[T//2:3*T//2]= signal
