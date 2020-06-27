@@ -28,12 +28,12 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
     T=save_T
     # print(T)
     f_mirror=np.zeros(2*T)
+    print(f_mirror)
+    f_mirror[0:T//2]=signal[T//2-1::-1]
     # print(f_mirror)
-    f_mirror[0:T/2]=signal[-T/2-1::-1]
+    f_mirror[T//2:3*T//2]= signal
     # print(f_mirror)
-    f_mirror[T/2:3*T/2]= signal
-    # print(f_mirror)
-    f_mirror[3*T/2:2*T]=signal[-1:-T/2-1:-1]
+    f_mirror[3*T//2:2*T]=signal[-1:-T//2-1:-1]
     # print(f_mirror)
     f=f_mirror
     # print('f_mirror')
@@ -66,7 +66,7 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
     # print(f_hat)
     # print('-----')
     f_hat_plus=f_hat
-    f_hat_plus[0:int(T)/2]=0
+    f_hat_plus[0:int(int(T)/2)]=0
     # print('f_hat_plus')
     # print(f_hat_plus.shape)
     # print(f_hat_plus)
@@ -133,7 +133,7 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
 
         #update first omega if not held at 0
         if DC==False:
-            omega_plus[n,k-1]=np.dot(freqs[T/2:T],np.square(np.abs(u_hat_plus[n,T/2:T,k-1])).T)/np.sum(np.square(np.abs(u_hat_plus[n,T/2:T,k-1])))
+            omega_plus[n,k-1]=np.dot(freqs[T//2:T],np.square(np.abs(u_hat_plus[n,T//2:T,k-1])).T)/np.sum(np.square(np.abs(u_hat_plus[n,T//2:T,k-1])))
 
 
         for k in range(2,K+1):
@@ -150,7 +150,7 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
     #         print(u_hat_plus[n,:,k-1])
             
             #center frequencies
-            omega_plus[n,k-1]=np.dot(freqs[T/2:T],np.square(np.abs(u_hat_plus[n,T/2:T,k-1])).T)/np.sum(np.square(np.abs(u_hat_plus[n,T/2:T:,k-1])))
+            omega_plus[n,k-1]=np.dot(freqs[T//2:T],np.square(np.abs(u_hat_plus[n,T//2:T,k-1])).T)/np.sum(np.square(np.abs(u_hat_plus[n,T//2:T:,k-1])))
     #         print('omega_plus'+str(k))
     #         print(omega_plus[n,k-1])
         #Dual ascent
@@ -195,11 +195,11 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
 
     # Signal reconstruction
     u_hat = np.zeros((T,K),dtype=complex)
-    u_hat[T/2:T,:]= np.squeeze(u_hat_plus[N-1,T/2:T,:])
+    u_hat[T//2:T,:]= np.squeeze(u_hat_plus[N-1,T//2:T,:])
     # print('u_hat')
     # print(u_hat.shape)
     # print(u_hat)
-    u_hat[T/2:0:-1,:]=np.squeeze(np.conj(u_hat_plus[N-1,T/2:T,:]))
+    u_hat[T//2:0:-1,:]=np.squeeze(np.conj(u_hat_plus[N-1,T//2:T,:]))
     u_hat[0,:]=np.conj(u_hat[-1,:])
     # print('u_hat')
     # print(u_hat)
@@ -210,11 +210,11 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
 
 
     # remove mirror part 
-    u=u[:,T/4:3*T/4]
+    u=u[:,T//4:3*T//4]
 
     # print(u_hat.shape)
     #recompute spectrum
-    u_hat = np.zeros((T/2,K),dtype=complex)
+    u_hat = np.zeros((T//2,K),dtype=complex)
 
     for k in range(1,K+1):
         u_hat[:,k-1]=np.fft.fftshift(np.fft.fft(u[k-1,:])).conj().T
@@ -229,8 +229,8 @@ def VMD(signal, alpha, tau, K, DC, init, tol):
     plt.plot(signal)
     plt.show()
     for i in range(1,K+1):
-        plt.plot(u[i-1,:])
-        plt.show()
+         plt.plot(u[i-1,:])
+         plt.show()
 
     return (u,u_hat,omega)
 
